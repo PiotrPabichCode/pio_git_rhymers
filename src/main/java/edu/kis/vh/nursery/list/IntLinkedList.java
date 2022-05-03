@@ -4,21 +4,34 @@ public class IntLinkedList {
 
 	private static final int EMPTY_LIST = -1;
 	private static final Node LIST_END = null;
-	Node last;
-	int i;
+	private Node last;
+	private int i;
+
+	public Node getLast() {
+		return this.last;
+	}
+
+	public void setLast(Node last) {
+		this.last = last;
+	}
+
+	public int getI() {
+		return this.i;
+	}
 
 	public void push(int i) {
-		if (last == LIST_END)
-			last = new Node(i);
+		if (getLast() == LIST_END){
+			setLast(new Node(i));
+		}
 		else {
-			last.next = new Node(i);
-			last.next.prev = last;
-			last = last.next;
+			getLast().setNext(new Node(i));
+			getLast().getNext().setPrev(getLast());
+			setLast(getLast().getNext());
 		}
 	}
 
 	public boolean isEmpty() {
-		return last == LIST_END;
+		return getLast() == LIST_END;
 	}
 
 	public boolean isFull() {
@@ -26,16 +39,17 @@ public class IntLinkedList {
 	}
 
 	public int top() {
-		if (isEmpty())
+		if (isEmpty()){
 			return EMPTY_LIST;
-		return last.value;
+		}
+		return last.getValue();
 	}
 
 	public int pop() {
 		if (isEmpty())
 			return EMPTY_LIST;
-		int ret = last.value;
-		last = last.prev;
+		int ret = getLast().getValue();
+		setLast(getLast().getPrev());
 		return ret;
 	}
 
